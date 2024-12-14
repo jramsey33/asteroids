@@ -2,24 +2,28 @@
 # the open-source pygame library
 # throught this file
 
-import pygame
+import pygame, player
 from constants import *
 
 
 def main():
     pygame.init
-    print("Starting asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
-
+    clock = pygame.time.Clock()
+    dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    p = player.Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 
     while True:
-        pygame.Surface.fill(screen, color=(0,0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+        pygame.Surface.fill(screen, "black")
+        p.draw(screen)
         pygame.display.flip()
+        
+        #limit frames to 60fps
+        dt = clock.tick(60) / 1000
 
-
-pygame.quit
 
 
 
